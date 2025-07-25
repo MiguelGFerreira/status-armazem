@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { ProcessedStats } from '@/app/types';
+import { DailyOperation, FILIAL_NAMES, ProcessedStats } from '@/app/types';
 import StockCard from './StockCard';
 import StatCard from './StatCard';
 import { ArrowDownToLine, ArrowUpFromLine, Ship } from 'lucide-react';
@@ -12,6 +12,8 @@ export default function Dashboard() {
 	const [data, setData] = useState<ProcessedStats | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+
+	const [activeFilial, setActiveFilial] = useState<string>('geral');
 
 	useEffect(() => {
 		async function fetchData() {
@@ -43,15 +45,21 @@ export default function Dashboard() {
 		return null;
 	}
 
+	const filialIds = Object.keys(FILIAL_NAMES);
+
 	return (
 		<div className="space-y-8">
-			<div className='space-y-6'>
-				<StockCard totalStock={data.totalStock} />
+			{/* RESUMO */}
+			<div className='md:col-span-2'>
+				<StockCard
+					totalStock={data.totalStock}
+					stockByFilial={data.stockByFilial}
+				/>
 			</div>
 
 			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
 				<StatCard
-					title="Total Compras a Entrar"
+					title="Compras a Entrar"
 					data={data.purchases}
 					icon={<ArrowDownToLine size={24} className="text-green-800" />}
 					colorClass="bg-green-100"
@@ -70,7 +78,31 @@ export default function Dashboard() {
 				/>
 			</div>
 
-			<ForecastTable data={data.sevenDayForecast} />
+			{/* TABELA DIARIA */}
+			<div className='bg-white p-4 sm:p-6 rounded-xl shadow-md'>
+				<div className='flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4'>
+					<h3 className='text-xl font-semibold text-gray-800 mb-2 sm:mb-0'>Programação Diária Consolidada</h3>
+					<div className='flex items-center gap-2 p-1 bg-gray-100 rounded-lg'>
+						<button
+							onClick={() => setActiveFilial('geral')}
+							className={`px-3 py-1 text-sm font-semibold rounded-md cursor-pointer transition-all duration-200 ${activeFilial === 'geral' ? 'bg-white text-blue-600 shadow' : 'text-gray-600 hover:bg-gray-200'}`}
+						>
+							Visão Geral
+						</button>
+						{filialIds.map(id => (
+							<button
+								key={id}
+								onClick={() => setActiveFilial(id)}
+								className={`px-3 py-1 text-sm font-semibold rounded-md cursor-pointer transition-all duration-200 ${activeFilial === id ? 'bg-white text-blue-600 shadow' : 'text-gray-600 hover:bg-gray-200'}`}
+							>
+								{FILIAL_NAMES[Number(id)]}
+							</button>
+						))}
+					</div>
+				</div>
+
+				<ForecastTable data={data.forecasts[activeFilial as keyof typeof data.forecasts] as DailyOperation[]} />
+			</div>
 		</div>
 	);
 }
