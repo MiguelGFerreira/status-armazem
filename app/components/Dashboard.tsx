@@ -6,6 +6,7 @@ import StockCard from './StockCard';
 import StatCard from './StatCard';
 import { ArrowDownToLine, ArrowUpFromLine, Ship } from 'lucide-react';
 import LoadingSpinner from './LoadingSpinner';
+import ForecastTable from './ForescastTable';
 
 export default function Dashboard() {
 	const [data, setData] = useState<ProcessedStats | null>(null);
@@ -44,31 +45,32 @@ export default function Dashboard() {
 
 	return (
 		<div className="space-y-8">
-			<StockCard totalStock={data.totalStock} />
+			<div className='space-y-6'>
+				<StockCard totalStock={data.totalStock} />
+			</div>
 
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+			<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
 				<StatCard
-					title="Compras a Entrar"
+					title="Total Compras a Entrar"
 					data={data.purchases}
 					icon={<ArrowDownToLine size={24} className="text-green-800" />}
 					colorClass="bg-green-100"
-					barColorClass="bg-green-400"
 				/>
 				<StatCard
 					title="Vendas Internas a Embarcar"
 					data={data.internalSales}
 					icon={<ArrowUpFromLine size={24} className="text-orange-800" />}
 					colorClass="bg-orange-100"
-					barColorClass="bg-orange-400"
 				/>
 				<StatCard
 					title="Vendas Externas a Embarcar"
 					data={data.externalSales}
 					icon={<Ship size={24} className="text-blue-800" />}
 					colorClass="bg-blue-100"
-					barColorClass="bg-blue-400"
 				/>
 			</div>
+
+			<ForecastTable data={data.sevenDayForecast} />
 		</div>
 	);
 }

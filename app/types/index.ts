@@ -1,4 +1,4 @@
-// Representa uma única linha da sua consulta SQL
+// Representa uma linha da consulta SQL
 export interface WarehouseRecord {
 	FILIAL: number;
 	DIA: string; // Formato "YYYY-MM-DD"
@@ -8,23 +8,26 @@ export interface WarehouseRecord {
 	Estoque: number;
 }
 
-export interface DailyTotal {
-	date: string;	//"2025-07-26"
-	dayOfWeek: string;	// "Sab"
-	formattedDate: string;	// "26/07"
-	total: number;
+export interface DailyOperation {
+	date: string;
+	dayOfWeek: string;
+	formattedDate: string;
+	compras: number;
+	vInterna: number;
+	vExterna: number;
+	saldo: number;
 }
 
-// Representa os dados já processados para exibição
+// Dados processados para exibição
 export interface ProcessedStats {
 	totalStock: number;
 	purchases: StatCategory;
 	internalSales: StatCategory;
 	externalSales: StatCategory;
+	sevenDayForecast: DailyOperation[];
 }
 
 export interface StatCategory {
 	total: number;
-	next7Days: DailyTotal[];
 	byMonth: { [month: string]: number };
 }
