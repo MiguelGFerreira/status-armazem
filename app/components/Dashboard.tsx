@@ -63,18 +63,21 @@ export default function Dashboard() {
 					data={data.purchases}
 					icon={<ArrowDownToLine size={24} className="text-green-800" />}
 					colorClass="bg-green-100"
+					detailsUrl="/detalhes/compras"
 				/>
 				<StatCard
 					title="Vendas Internas a Embarcar"
 					data={data.internalSales}
 					icon={<ArrowUpFromLine size={24} className="text-orange-800" />}
 					colorClass="bg-orange-100"
+					detailsUrl="/detalhes/vendas-internas"
 				/>
 				<StatCard
 					title="Vendas Externas a Embarcar"
 					data={data.externalSales}
 					icon={<Ship size={24} className="text-blue-800" />}
 					colorClass="bg-blue-100"
+					detailsUrl="/detalhes/vendas-externas"
 				/>
 			</div>
 

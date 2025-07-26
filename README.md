@@ -27,7 +27,7 @@ Este projeto consome uma API interna que retorna dados do SQL Server, processa e
 ## 🚀 Instalação
 
 1. Clone este repositório  
-	git clone https://github.com/seu-usuário/status-armazem.git
+	git clone https://github.com/MiguelGFerreira/status-armazem.git
 	cd status-armazem
 
 2. Instale dependências

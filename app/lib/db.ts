@@ -7,6 +7,12 @@ const dbConfig: SqlConfig = {
 	database: process.env.DB_DATABASE,
 	port: parseInt(process.env.DB_PORT || "1433"),
 	options: {
+		debug: {
+			token: true,
+			packet: true,
+			data: true,
+			payload: true
+		},
 		encrypt: process.env.DB_ENCRYPT === 'true',
 		trustServerCertificate: process.env.DB_TRUST_SERVER_CERTIFICATE === 'true',
 	},
