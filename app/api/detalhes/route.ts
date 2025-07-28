@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import sql from "mssql";
 import { connectToDatabase } from "@/app/lib/db";
-import { log } from "console";
 
 const OPERACAO_MAP: { [key: string]: string } = {
 	'compras': 'CO',

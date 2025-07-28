@@ -3,9 +3,8 @@
 import DetailsTable from "@/app/components/details/DetailsTable";
 import Filters from "@/app/components/details/Filters";
 import Pagination from "@/app/components/details/Pagination";
-import LoadingSpinner from "@/app/components/LoadingSpinner";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import useSWR from "swr";
 
