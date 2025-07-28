@@ -25,7 +25,7 @@ export default function Pagination({ currentPage, totalPages, totalRecords, onPa
 				<button
 					onClick={() => onPageChange(currentPage - 1)}
 					disabled={currentPage === 1 || isLoading}
-					className="px-3 py-2 text-gray-500 text-sm font-semibold rounded-md border bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+					className="button-pagination"
 				>
 					Anterior
 				</button>
@@ -37,7 +37,7 @@ export default function Pagination({ currentPage, totalPages, totalRecords, onPa
 				<button
 					onClick={() => onPageChange(currentPage + 1)}
 					disabled={currentPage === totalPages || isLoading}
-					className="px-3 py-2 text-gray-500 text-sm font-semibold rounded-md border bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+					className="button-pagination"
 				>
 					Próxima
 				</button>

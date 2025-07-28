@@ -33,7 +33,7 @@ export default function StatCard({ title, data, icon, colorClass, detailsUrl }: 
 						<div key={filialId} className="flex flex-col">
 							{/* SUBTOTAL */}
 							<div className="text-center md:text-left">
-								<h4 className="font-bold text-blue-800">{FILIAL_NAMES[Number(filialId)]}</h4>
+								<h4 className="font-bold text-green-800">{FILIAL_NAMES[Number(filialId)]}</h4>
 								<p className="font-semibold text-gray-700 text-xl">{formatNumber(filialData.total)} KG</p>
 							</div>
 

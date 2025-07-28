@@ -41,7 +41,7 @@ export default function Filters({ filters, onFilterChange, isLoading}: FiltersPr
 						value={filters.filial}
 						onChange={handleInputChange}
 						disabled={isLoading}
-						className="mt-1 text-gray-500 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md disabled:bg-gray-100"
+						className="text-gray-500"
 					>
 						<option value="">Todas</option>
 						{Object.entries(FILIAL_NAMES).map(([id, name]) => (
@@ -60,7 +60,6 @@ export default function Filters({ filters, onFilterChange, isLoading}: FiltersPr
 						value={filters.startDate}
 						onChange={handleInputChange}
 						disabled={isLoading}
-						className="mt-1 text-gray-500 block w-full pl-3 pr-2 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md disabled:bg-gray-100"
 					/>
 				</div>
 
@@ -74,7 +73,6 @@ export default function Filters({ filters, onFilterChange, isLoading}: FiltersPr
 						value={filters.endDate}
 						onChange={handleInputChange}
 						disabled={isLoading}
-						className="mt-1 text-gray-500 block w-full pl-3 pr-2 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md disabled:bg-gray-100"
 					/>
 				</div>
 
@@ -83,7 +81,7 @@ export default function Filters({ filters, onFilterChange, isLoading}: FiltersPr
 					<button
 						onClick={clearFilters}
 						disabled={isLoading}
-						className="bg-gay-600 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-gray-700 disabled:bg-gray-300"
+						className="bg-green-800 text-white font-semibold text-sm px-4 py-2 rounded-md hover:bg-green-600 cursor-pointer transition-all duration-300 disabled:bg-green-300"
 					>
 						Limpar Filtros
 					</button>

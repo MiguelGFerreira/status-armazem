@@ -3,6 +3,7 @@
 import DetailsTable from "@/app/components/details/DetailsTable";
 import Filters from "@/app/components/details/Filters";
 import Pagination from "@/app/components/details/Pagination";
+import { useImageContext } from "@/app/context/ImageContext";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -19,6 +20,7 @@ const OPERACAO_TITLES: { [key: string]: string } = {
 export default function DetailsPage() {
 	const params = useParams();
 	const operacao = Array.isArray(params.operacao) ? params.operacao[0] : params.operacao;
+	const { selectedVersion, isLoading: isVersionLoading } = useImageContext();
 
 	const [page, setPage] = useState(1);
 	const [limit] = useState(20);
@@ -26,7 +28,7 @@ export default function DetailsPage() {
 	const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 	const [filters, setFilters] = useState({ filial: '', startDate: '', endDate: '' });
 
-	const apiUrl = `/api/detalhes?operacao=${operacao}&page=${page}&limit=${limit}&sortBy=${sortBy}&sortOrder=${sortOrder}&filial=${filters.filial}&startDate=${filters.startDate}&endDate=${filters.endDate}`;
+	const apiUrl = `/api/detalhes?operacao=${operacao}&codimg=${selectedVersion ? String(selectedVersion) : ''}&page=${page}&limit=${limit}&sortBy=${sortBy}&sortOrder=${sortOrder}&filial=${filters.filial}&startDate=${filters.startDate}&endDate=${filters.endDate}`;
 	const { data, error, isLoading } = useSWR(apiUrl, fetcher);
 
 	const handleSort = (column: string) => {

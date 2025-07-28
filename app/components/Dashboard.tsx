@@ -7,18 +7,27 @@ import StatCard from './StatCard';
 import { ArrowDownToLine, ArrowUpFromLine, Ship } from 'lucide-react';
 import LoadingSpinner from './LoadingSpinner';
 import ForecastTable from './ForescastTable';
+import { useImageContext } from '../context/ImageContext';
 
 export default function Dashboard() {
 	const [data, setData] = useState<ProcessedStats | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
+	const { selectedVersion, isLoading: isVersionLoading } = useImageContext();
 
 	const [activeFilial, setActiveFilial] = useState<string>('geral');
 
+	console.log('DASHBOARD - selectedVersion: ', selectedVersion);
+
 	useEffect(() => {
+		if (selectedVersion === null) return;
+
+		setLoading(true);
+		setError(null);
+
 		async function fetchData() {
 			try {
-				const response = await fetch('/api/status-armazem');
+				const response = await fetch(`/api/status-armazem?codimg=${selectedVersion}`);
 				if (!response.ok) {
 					throw new Error('Falha ao buscar dados da API');
 				}
@@ -31,9 +40,9 @@ export default function Dashboard() {
 			}
 		}
 		fetchData();
-	}, []);
+	}, [selectedVersion]);
 
-	if (loading) {
+	if (loading || isVersionLoading) {
 		return <LoadingSpinner />;
 	}
 
@@ -88,7 +97,7 @@ export default function Dashboard() {
 					<div className='flex items-center gap-2 p-1 bg-gray-100 rounded-lg'>
 						<button
 							onClick={() => setActiveFilial('geral')}
-							className={`px-3 py-1 text-sm font-semibold rounded-md cursor-pointer transition-all duration-200 ${activeFilial === 'geral' ? 'bg-white text-blue-600 shadow' : 'text-gray-600 hover:bg-gray-200'}`}
+							className={`px-3 py-1 text-sm font-semibold rounded-md cursor-pointer transition-all duration-200 ${activeFilial === 'geral' ? 'bg-white text-green-600 shadow' : 'text-gray-600 hover:bg-gray-200'}`}
 						>
 							Visão Geral
 						</button>
@@ -96,7 +105,7 @@ export default function Dashboard() {
 							<button
 								key={id}
 								onClick={() => setActiveFilial(id)}
-								className={`px-3 py-1 text-sm font-semibold rounded-md cursor-pointer transition-all duration-200 ${activeFilial === id ? 'bg-white text-blue-600 shadow' : 'text-gray-600 hover:bg-gray-200'}`}
+								className={`px-3 py-1 text-sm font-semibold rounded-md cursor-pointer transition-all duration-200 ${activeFilial === id ? 'bg-white text-green-600 shadow' : 'text-gray-600 hover:bg-gray-200'}`}
 							>
 								{FILIAL_NAMES[Number(id)]}
 							</button>

@@ -10,7 +10,7 @@ const formatNumber = (num: number) => num.toLocaleString('pt-BR');
 
 export default function StockCard({ totalStock, stockByFilial }: StockCardProps) {
 	return (
-		<div className="bg-tristao-trading text-white p-6 rounded-xl shadow-lg">
+		<div className="bg-green-800 text-white p-6 rounded-xl shadow-lg">
 			<div className='flex flex-col gap-4'>
 				{/* TOTAL GERAL */}
 				<div className='flex items-center gap-4'>
@@ -22,7 +22,7 @@ export default function StockCard({ totalStock, stockByFilial }: StockCardProps)
 				</div>
 
 				{/* ESTOQUE POR FILIAL */}
-				<div className='border-t border-sky-500 pt-3 flex justify-around text-center'>
+				<div className='border-t border-emerald-500 pt-3 flex justify-around text-center'>
 					{Object.entries(stockByFilial).map(([id, value]) => (
 						<div key={id}>
 							<p className='text-sm font-medium text-white'>{FILIAL_NAMES[Number(id)]}</p>

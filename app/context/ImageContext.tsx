@@ -1,4 +1,3 @@
-// app/context/ImageContext.tsx
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
@@ -22,7 +21,9 @@ const ImageContext = createContext<ImageContextType | undefined>(undefined);
 
 export function ImageProvider({ children }: { children: ReactNode }) {
 	const { data: versions, error, isLoading: swrLoading } = useSWR<ImageVersion[]>('/api/image-versions', fetcher);
-	const [selectedVersion, setSelectedVersion] = useState<number | null>(null);
+	const [selectedVersion, setSelectedVersion] = useState<number | null>(
+		versions && versions.length > 0 ? versions[0].CODIGO : null
+	);
 
 	useEffect(() => {
 		// define a mais recente como padrao

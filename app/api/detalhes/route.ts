@@ -12,10 +12,16 @@ const ALLOWED_SORT_COLUMNS = ['DATAENTREGA', 'FILIAL', 'PRODUTO', 'QUANTIDADE', 
 
 export async function GET(request: Request) {
 	const { searchParams } = new URL(request.url);
+	const codimg = searchParams.get('codimg');
+
+	if (!codimg) {
+        return NextResponse.json({ message: 'CODIMG é obrigatório' }, { status: 400 });
+    }
 
 	//params da url
 	const operacaoKey = searchParams.get('operacao') || 'compras'; // vai cair em compras por default
 	const operacao = OPERACAO_MAP[operacaoKey];
+
 	if (!operacao) {
 		return NextResponse.json({ message: 'Operação inválida' }, { status: 400 });
 	}
@@ -41,7 +47,7 @@ export async function GET(request: Request) {
 	const params: { [key: string]: any } = { operacao: { type: sql.VarChar, value: operacao } };
 
 	whereClauses.push("CODIMG = @codimg");
-	params.codimg = { type: sql.Int, value: 1428 };
+	params.codimg = { type: sql.Int, value: parseInt(codimg, 10) };
 
 	if (filial) {
 		whereClauses.push("FILIAL = @filial");
