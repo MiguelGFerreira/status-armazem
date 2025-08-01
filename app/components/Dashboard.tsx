@@ -8,16 +8,15 @@ import { ArrowDownToLine, ArrowUpFromLine, Ship } from 'lucide-react';
 import LoadingSpinner from './LoadingSpinner';
 import ForecastTable from './ForescastTable';
 import { useImageContext } from '../context/ImageContext';
+import ProductFilter from './ProductFilter';
 
 export default function Dashboard() {
 	const [data, setData] = useState<ProcessedStats | null>(null);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const { selectedVersion, isLoading: isVersionLoading } = useImageContext();
-
+	const [productFilter, setProductFilter] = useState<'ALL' | 'ARA' | 'CON'>('ALL');
 	const [activeFilial, setActiveFilial] = useState<string>('geral');
-
-	console.log('DASHBOARD - selectedVersion: ', selectedVersion);
 
 	useEffect(() => {
 		if (selectedVersion === null) return;
@@ -27,7 +26,7 @@ export default function Dashboard() {
 
 		async function fetchData() {
 			try {
-				const response = await fetch(`/api/status-armazem?codimg=${selectedVersion}`);
+				const response = await fetch(`/api/status-armazem?codimg=${selectedVersion}&productFilter=${productFilter}`);
 				if (!response.ok) {
 					throw new Error('Falha ao buscar dados da API');
 				}
@@ -40,7 +39,11 @@ export default function Dashboard() {
 			}
 		}
 		fetchData();
-	}, [selectedVersion]);
+	}, [selectedVersion, productFilter]);
+
+	const handleFilterChange = (newFilter: 'ALL' | 'ARA' | 'CON') => {
+		setProductFilter(newFilter);
+	}
 
 	if (loading || isVersionLoading) {
 		return <LoadingSpinner />;
@@ -58,6 +61,11 @@ export default function Dashboard() {
 
 	return (
 		<div className="space-y-8">
+			<ProductFilter
+				activeFilter={productFilter}
+				onFilterChange={handleFilterChange}
+				isLoading={loading || isVersionLoading}
+			/>
 			{/* RESUMO */}
 			<div className='md:col-span-2'>
 				<StockCard

@@ -19,7 +19,7 @@ export default function ForecastTable({ data }: ForecastTableProps) {
 						<div className="col-span-4 sm:col-span-2 text-right">Compras</div>
 						<div className="col-span-3 sm:col-span-2 text-right">V. Interna</div>
 						<div className="col-span-3 sm:col-span-2 text-right">V. Externa</div>
-						<div className="col-span-12 sm:col-span-4">Saldo do dia (Entrada - Saida)</div>
+						<div className="col-span-12 sm:col-span-4 text-right">Saldo do dia (Entrada - Saida)</div>
 					</div>
 
 					{/* Body tabela */}

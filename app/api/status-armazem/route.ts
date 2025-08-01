@@ -2,17 +2,26 @@ import { NextResponse } from 'next/server';
 import { processWarehouseData } from '@/app/lib/data-processor';
 import { dbQuery } from '@/app/lib/db';
 import { WarehouseRecord } from '@/app/types';
-import { useImageContext } from '@/app/context/ImageContext';
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const codimg = searchParams.get('codimg');
+    const productFilter = searchParams.get('productFilter');
 
     if (!codimg) {
         return NextResponse.json({ message: 'CODIMG obrigatorio.' }, { status: 400 });
     }
 
-    console.log('SAR - CODIMG: ', codimg);
+    let productWhereClause = '';
+    //const params: { [key: string]: any } = { codimg: parseInt(codimg, 10) };
+
+    console.log('ROUTE - productFilter: ', productFilter);
+    if (productFilter && (productFilter.toUpperCase() === 'ARA' || productFilter.toUpperCase() === 'CON')) {
+        productWhereClause = `AND LEFT(PRODUTO, 3) = '${productFilter.toUpperCase()}'`;
+    } else {
+        productWhereClause = `AND LEFT(PRODUTO, 3) IN ('ARA', 'CON')`;
+    }
+    //console.log('SAR - CODIMG: ', codimg);
 
     const warehouseQuery = `
         SELECT 
@@ -49,7 +58,7 @@ export async function GET(request: Request) {
                 ALMOX
             FROM TCE_IMG_POSQUAL
             WHERE CODIMG = ${parseInt(codimg, 10)}
-            AND LEFT(PRODUTO, 3) = 'ARA'
+            ${productWhereClause}
         ) AS TAB
         PIVOT(SUM(QUANTIDADE) FOR OPERACAO IN ([VI], [VE], [CO], [EST])) AS PVT
         GROUP BY 
@@ -58,6 +67,7 @@ export async function GET(request: Request) {
         ORDER BY
             DIA;
         `;
+    console.log(warehouseQuery);
     try {
         // função executa a consulta no db
         const databaseResult = await dbQuery(warehouseQuery);
