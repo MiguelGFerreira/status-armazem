@@ -1,5 +1,3 @@
-// app/components/StatCard.tsx
-
 import { ReactNode } from 'react';
 import { FILIAL_NAMES, StatCategory } from '@/app/types';
 import Link from 'next/link';
@@ -23,7 +21,7 @@ export default function StatCard({ title, data, icon, colorClass, detailsUrl }: 
 					<div className={`p-3 rounded-full ${colorClass}`}>{icon}</div>
 					<div>
 						<h3 className="text-lg font-semibold text-gray-700">{title}</h3>
-						<p className="text-3xl font-bold text-gray-800">{formatNumber(data.total)} KG</p>
+						<p className="text-3xl font-bold text-gray-800">{formatNumber(data.total)} SC</p>
 					</div>
 				</div>
 
@@ -34,7 +32,7 @@ export default function StatCard({ title, data, icon, colorClass, detailsUrl }: 
 							{/* SUBTOTAL */}
 							<div className="text-center md:text-left">
 								<h4 className="font-bold text-green-800">{FILIAL_NAMES[Number(filialId)]}</h4>
-								<p className="font-semibold text-gray-700 text-xl">{formatNumber(filialData.total)} KG</p>
+								<p className="font-semibold text-gray-700 text-xl">{formatNumber(filialData.total)} SC</p>
 							</div>
 
 							{/* MENSAL */}

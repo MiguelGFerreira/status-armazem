@@ -52,7 +52,7 @@ export function processWarehouseData(data: WarehouseRecord[]): ProcessedStats {
 
 		const recordDate = new Date(DIA + 'T12:00:00');
 
-		if (recordDate >= today) {
+		// if (recordDate >= today) {
 			const monthYear = recordDate.toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
 			
 			if (Compra > 0) {
@@ -86,7 +86,7 @@ export function processWarehouseData(data: WarehouseRecord[]): ProcessedStats {
 				forecasts.geral[dayIndex].vInterna += V_Interna;
 				forecasts.geral[dayIndex].vExterna += V_Externa;
 			}
-		}
+		// }
 	});
 
 	Object.values(forecasts).forEach(forecastArray => {

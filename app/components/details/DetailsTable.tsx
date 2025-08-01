@@ -32,7 +32,7 @@ export default function DetailsTable({ data, onSort, sortBy, sortOrder, isLoadin
 		{ label: 'Data Entrega', key: 'DATAENTREGA' },
 		{ label: 'Filial', key: 'FILIAL' },
 		{ label: 'Produto', key: 'PRODUTO' },
-		{ label: 'Quantidade (KG)', key: 'QUANTIDADE' },
+		{ label: 'Quantidade (SC)', key: 'QUANTIDADE' },
 		{ label: 'Classificação', key: 'CLASSIFICACAO' },
 		{ label: 'ID', key: 'ID' },
 	];

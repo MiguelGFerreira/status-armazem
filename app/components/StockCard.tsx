@@ -17,7 +17,7 @@ export default function StockCard({ totalStock, stockByFilial }: StockCardProps)
 					<Warehouse size={40} />
 					<div>
 						<h2 className='text-lg font-semibold'>Estoque Atual Total</h2>
-						<p className='text-4xl font-bold'>{formatNumber(totalStock)} KG</p>
+						<p className='text-4xl font-bold'>{formatNumber(totalStock)} SC</p>
 					</div>
 				</div>
 

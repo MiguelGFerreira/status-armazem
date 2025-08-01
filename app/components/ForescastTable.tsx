@@ -42,7 +42,7 @@ export default function ForecastTable({ data }: ForecastTableProps) {
 									<div className="col-span-3 sm:col-span-2 text-right text-gray-700">{formatNumber(day.vInterna)}</div>
 									<div className="col-span-3 sm:col-span-2 text-right text-gray-700">{formatNumber(day.vExterna)}</div>
 									<div className={`col-span-12 sm:col-span-4 text-right font-bold text-lg flex items-center justify-end gap-2 ${saldoColor}`}>
-										<span>{formatNumber(day.saldo)} KG</span>
+										<span>{formatNumber(day.saldo)} SC</span>
 										{saldoPositivo && <TrendingUp size={20} />}
 										{saldoNegativo && <TrendingDown size={20} />}
 										{saldoZero && <Minus size={20} />}
